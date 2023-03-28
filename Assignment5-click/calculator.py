@@ -11,7 +11,10 @@ def sum(firstnum,secondnum):
     '''
        Return sum of two nos
     '''
-    click.echo(int(firstnum)+int(secondnum))
+    try:
+        click.echo(int(firstnum)+int(secondnum))
+    except Exception as e:
+        click.echo(e)
 
 @cli.command()
 @click.argument('firstnum')
@@ -20,7 +23,10 @@ def difference(firstnum,secondnum):
     '''
        Return difference of two nos
     '''
-    click.echo(int(firstnum)-int(secondnum))
+    try:
+        click.echo(int(firstnum)-int(secondnum))
+    except Exception as e:
+        click.echo(e)
 
 @cli.command()
 @click.argument('firstnum')
@@ -29,7 +35,10 @@ def product(firstnum,secondnum):
     '''
        Return multiplication of two nos
     '''
-    click.echo(int(firstnum)*int(secondnum))
+    try:
+        click.echo(int(firstnum)*int(secondnum))
+    except Exception as e:
+        click.echo(e)
 
 @cli.command()
 @click.argument('firstnum')
@@ -38,10 +47,13 @@ def divide(firstnum,secondnum):
     '''
        Return division of two nos
     '''
-    if int(secondnum) == 0:
-        click.echo('Not divisible by 0')
-        return
-    click.echo(int(firstnum)/int(secondnum))
+    try:
+        if int(secondnum) == 0:
+            click.echo('Not divisible by 0')
+            return
+        click.echo(int(firstnum)/int(secondnum))
+    except Exception as e:
+        click.echo(e)
 
 
 if __name__=="__main__":
