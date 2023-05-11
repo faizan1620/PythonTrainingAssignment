@@ -1,0 +1,4 @@
+fastapi
+rq
+redis
+uvicorn
