@@ -10,8 +10,6 @@ lock = RedisLock(redis_instance, name="task_id")
 
 REDIS_TASK_KEY = "current_task"
 
-from modules import task
-
 app = FastAPI()
 
 
@@ -27,12 +25,13 @@ def start() -> TaskOut:
             raise HTTPException(status_code=500, detail="Could not acquire lock")
 
         task_id = redis_instance.get(REDIS_TASK_KEY)
-        print(task_id,task.app.AsyncResult(task_id).ready())
+        print(task_id, task.app.AsyncResult(task_id).ready())
         r = task.dummy_task.delay()
         redis_instance.set(REDIS_TASK_KEY, r.task_id)
         return _to_taskout(r)
     finally:
         lock.release()
+
 
 @app.get("/status")
 def status(task_id: str) -> TaskOut:
@@ -43,6 +42,7 @@ def status(task_id: str) -> TaskOut:
         )
     r = task.app.AsyncResult(task_id)
     return _to_taskout(r)
+
 
 @app.get("/")
 def root():
