@@ -6,6 +6,7 @@ import reactivex
 from reactivex.scheduler import ThreadPoolScheduler
 from reactivex import operators as ops
 
+
 # This function for intense calculation for CPU bound, currenltly its just sleep for a few seconds
 def intense_calculation(value):
     time.sleep(random.randint(5, 20) * 0.1)
