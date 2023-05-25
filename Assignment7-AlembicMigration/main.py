@@ -27,14 +27,18 @@ tags_metadata = [
 ]
 
 
-app = FastAPI(title="Student Management System",
+app = FastAPI(
+    title="Student Management System",
     description=description,
-    version="0.0.1",openapi_tags=tags_metadata)
+    version="0.0.1",
+    openapi_tags=tags_metadata,
+)
 
 app.include_router(student.router, tags=["Student"])
 
 app.include_router(book.router, tags=["Book"])
 
-@app.get('/')
+
+@app.get("/")
 def root():
-    return { 'status': 'FastAPI is running' }
+    return {"status": "FastAPI is running"}

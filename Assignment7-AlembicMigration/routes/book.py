@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from services import crud, schema
 from services.database import SessionLocal
 
+
 # Dependency
 def get_db():
     db = SessionLocal()
@@ -10,12 +11,12 @@ def get_db():
         yield db
     finally:
         db.close()
-        
-router = APIRouter(
-    prefix='/book'
-)
 
-@router.get('/')
+
+router = APIRouter(prefix="/book")
+
+
+@router.get("/")
 def get_books(db: Session = Depends(get_db)):
     """
     Returns list of all books:
@@ -23,11 +24,12 @@ def get_books(db: Session = Depends(get_db)):
     """
     books = crud.get_books(db)
     if not books:
-        raise HTTPException(status_code=404,detail=f"No book details found")
+        raise HTTPException(status_code=404, detail="No book details found")
     return books
 
-@router.get('/{id}')
-def get_book_by_id(id:int, db: Session = Depends(get_db)):
+
+@router.get("/{id}")
+def get_book_by_id(id: int, db: Session = Depends(get_db)):
     """
     Return only book associated with that id:
 
@@ -35,11 +37,12 @@ def get_book_by_id(id:int, db: Session = Depends(get_db)):
     """
     book = crud.get_book_by_id(db, id)
     if not book:
-        raise HTTPException(status_code=404,detail=f"Book with id: {id} doesnot exist")
+        raise HTTPException(status_code=404, detail=f"Book with id: {id} doesnot exist")
     return book
 
-@router.get('/student/{student_id}')
-def get_book_by_student_id(student_id:int, db: Session = Depends(get_db)):
+
+@router.get("/student/{student_id}")
+def get_book_by_student_id(student_id: int, db: Session = Depends(get_db)):
     """
     Returns list of all books associated with the corresponding student id:
 
@@ -47,11 +50,14 @@ def get_book_by_student_id(student_id:int, db: Session = Depends(get_db)):
     """
     book = crud.get_book_by_student_id(db, student_id)
     if not book:
-        raise HTTPException(status_code=404,detail=f"Book with Student id: {student_id} doesnot exist")
+        raise HTTPException(
+            status_code=404, detail=f"Book with Student id: {student_id} doesnot exist"
+        )
     return book
 
-@router.post('/')
-def post_books(book: schema.Book,  student_id:int, db: Session = Depends(get_db)):
+
+@router.post("/")
+def post_books(book: schema.Book, student_id: int, db: Session = Depends(get_db)):
     """
     Create a book with all the information associated to any student:
 
@@ -63,8 +69,8 @@ def post_books(book: schema.Book,  student_id:int, db: Session = Depends(get_db)
     return book
 
 
-@router.delete('/{id}')
-def delete_student_book(id: int,  db: Session = Depends(get_db)): 
+@router.delete("/{id}")
+def delete_student_book(id: int, db: Session = Depends(get_db)):
     """
     Delete the book information for any specific id:
 
@@ -72,14 +78,12 @@ def delete_student_book(id: int,  db: Session = Depends(get_db)):
     """
     book = crud.delete_book(db, id)
     if not book:
-        raise HTTPException(404,f"Book couldnot be deleted with id: {id}")
-    return {
-        "detail": f"Book with id: {id} deleted successfully!",
-        "status": "Success"
-    }
+        raise HTTPException(404, f"Book couldnot be deleted with id: {id}")
+    return {"detail": f"Book with id: {id} deleted successfully!", "status": "Success"}
 
-@router.put('/{id}')
-def update_student(id:int, book: schema.Book,db: Session = Depends(get_db)):
+
+@router.put("/{id}")
+def update_student(id: int, book: schema.Book, db: Session = Depends(get_db)):
     """
     Update the book information:
 
@@ -87,7 +91,7 @@ def update_student(id:int, book: schema.Book,db: Session = Depends(get_db)):
     - **title**: Title of the book
     - **department**: Department of book
     """
-    student = crud.update_book(db,book,id)
+    student = crud.update_book(db, book, id)
     if not student:
-        raise HTTPException(404,f"Book couldnot be updated with id: {id}")
+        raise HTTPException(404, f"Book couldnot be updated with id: {id}")
     return book

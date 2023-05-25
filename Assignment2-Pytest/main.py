@@ -1,4 +1,4 @@
-#Calci class just to implement addition,subtraction,multiplication and division of two numbers
+# Calci class just to implement addition,subtraction,multiplication and division of two numbers
 class Calci:
     def __init__(self, a, b):
         self.a = a
@@ -15,6 +15,6 @@ class Calci:
 
     def division(self):
         try:
-         return self.a / self.b
+            return self.a / self.b
         except ZeroDivisionError:
-            return 'Can\'t divide with zero'
+            return "Can't divide with zero"
