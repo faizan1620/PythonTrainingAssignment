@@ -1,5 +1,6 @@
 from pydantic import BaseModel, validator
 
+
 class Titanic(BaseModel):
     Age: int
     Fare: float
@@ -10,6 +11,7 @@ class Titanic(BaseModel):
     Embarked_S: bool
     Sex_male: bool
     IsMinor: bool
+
     class Config:
         schema_extra = {
             "example": {
@@ -21,14 +23,15 @@ class Titanic(BaseModel):
                 "Embarked_C": 0,
                 "Embarked_S": 1,
                 "Sex_male": 1,
-                "IsMinor": 1
+                "IsMinor": 1,
             }
         }
-    @validator('Age')
+
+    @validator("Age")
     def validate_age(cls, v):
         try:
             if v < 1 or v > 100:
-                raise ValueError('Invalid age provided, provide valid age')
+                raise ValueError("Invalid age provided, provide valid age")
             return v
         except Exception:
-            raise ValueError('Invalid age provided, provide valid age')
+            raise ValueError("Invalid age provided, provide valid age")

@@ -1,18 +1,20 @@
 from sklearn.ensemble import AdaBoostClassifier
 
+
 def adaboost_classifier_train(df):
     # Prepare training data for building the model
-    X_train = df.drop(['target'], axis=1)
-    y_train = df['target']
+    X_train = df.drop(["target"], axis=1)
+    y_train = df["target"]
 
     # Instantiate the model
     cls = AdaBoostClassifier()
 
-    # Train/Fit the model 
+    # Train/Fit the model
     cls.fit(X_train, y_train)
     return cls
 
-def adaboost_classifier_predict(cls,iris,X_pred):
+
+def adaboost_classifier_predict(cls, iris, X_pred):
     targets = iris.target_names
     print(targets)
 

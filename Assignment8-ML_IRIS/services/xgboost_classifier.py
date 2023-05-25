@@ -1,12 +1,14 @@
 from xgboost import XGBClassifier
+
+
 def xgboost_train(df):
-    X_train = df.drop(['target'], axis=1).values
-    y_train = df['target']
+    X_train = df.drop(["target"], axis=1).values
+    y_train = df["target"]
 
     # Instantiate the model
     cls = XGBClassifier()
 
-    # Train/Fit the model 
+    # Train/Fit the model
     cls.fit(X_train, y_train)
     return cls
 

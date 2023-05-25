@@ -6,6 +6,7 @@ redis_url = os.getenv("REDIS_URL", "redis://localhost:6379")
 
 app = Celery(__name__, broker=redis_url, backend=redis_url)
 
+
 @app.task
 def dummy_task():
     folder = "/tmp/celery"
